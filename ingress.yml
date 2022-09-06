@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    # nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    # nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.org/client-max-body-size: 50m
+  name: nginx-ingress
+
+
+spec:
+  rules:
+  - host: react.logicrays.tk
+    http:
+        paths:
+          -
+            backend:
+              service:
+                name: react
+                port:
+                  number: 3000
+            path: /
+            pathType: Prefix
+
+  - host: node.logicrays.tk
+    http:
+        paths:
+          -
+            backend:
+              service:
+                name: node
+                port:
+                  number: 5000
+            path: /
+            pathType: Prefix
+
+
